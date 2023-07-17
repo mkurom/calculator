@@ -38,6 +38,10 @@ double? checkInput(String? input) {
     return null;
   }
   double? number = double.tryParse(input);
+  if (number == null) {
+    handleError('無効な入力です。');
+    return null;
+  }
 
   return number;
 }

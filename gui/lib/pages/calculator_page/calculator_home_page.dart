@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:gui/pages/calculator_logic.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:gui/pages/calculator_page/widgets/button.dart';
 import 'package:gui/util/constant/constant.dart';
-import 'package:gui/util/extension/context_extension.dart';
 
 class CalculatorHomePage extends StatefulWidget {
   const CalculatorHomePage({super.key});

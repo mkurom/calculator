@@ -1,5 +1,6 @@
 const allClear = 'AC';
 
+const zero = '0';
 const dot = '.';
 const addition = '+';
 const subtraction = '-';

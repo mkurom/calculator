@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gui/pages/calculator_logic.dart';
+import 'package:gui/pages/calculator_page/calculator_logic.dart';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:gui/pages/calculator_page/widgets/button.dart';
@@ -13,50 +13,51 @@ class CalculatorHomePage extends StatefulWidget {
 }
 
 class CalculatorHomePageState extends State<CalculatorHomePage> {
-  String input = '0';
-  String output = '0';
+  String num1 = zero;
+  String num2 = zero;
+  String result = zero;
   String operand = '';
 
   void buttonPressed(String buttonText) {
-    if (output.length > 16) {
-      return;
-    }
+    // if (result.length > 16) {
+    //   return;
+    // }
 
     if (buttonText == allClear) {
-      output = '0';
+      num1 = zero;
+      num2 = zero;
+      result = zero;
       operand = '';
-    } else if (buttonText == addition ||
-        buttonText == subtraction ||
-        buttonText == multiplication ||
-        buttonText == division) {
-      if (output == '0' || operand.isNotEmpty) {
-        return;
-      }
+    } else if (isOperand(buttonText)) {
+      num2 = result;
+
       operand = buttonText;
-      output = output + operand;
     } else if (buttonText == dot) {
-      if (output.contains(dot)) {
-        return;
-      } else {
-        output = output + buttonText;
-      }
-    } else if (buttonText == equals) {
-      output = calculate(output, operand);
-      operand = '';
-    } else {
-      if (output == '0' && buttonText == '0') {
+      if (result.contains(dot)) {
         return;
       }
 
-      if (output == '0') {
-        output = buttonText;
+      result = result + buttonText;
+    } else if (buttonText == equals) {
+      result = calculate(num1, num2, operand);
+
+      num1 = result;
+    } else {
+      if (num1 == zero && buttonText == zero) {
+        return;
+      }
+
+      if (num1 == zero) {
+        num1 = buttonText;
+        result = num1;
       } else {
-        output = output + buttonText;
+        num2 = buttonText;
+        result = num2;
       }
     }
 
     setState(() {
-      output = output;
+      result = result;
     });
   }
 
@@ -75,7 +76,7 @@ class CalculatorHomePageState extends State<CalculatorHomePage> {
               horizontal: 12,
             ),
             child: AutoSizeText(
-              output,
+              result,
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               maxLines: 1,

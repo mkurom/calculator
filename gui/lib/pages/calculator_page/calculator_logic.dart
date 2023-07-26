@@ -4,26 +4,31 @@ String calculate(String num1, String num2, String operand) {
   try {
     final _num1 = double.parse(num1);
     final _num2 = double.parse(num2);
-
+    var _answer = zero;
     if (operand == addition) {
-      return (_num1 + _num2).toString();
+      _answer = (_num1 + _num2).toString();
     }
     if (operand == subtraction) {
-      return (_num1 - _num2).toString();
+      _answer = (_num1 - _num2).toString();
     }
     if (operand == multiplication) {
-      return (_num1 * _num2).toString();
+      _answer = (_num1 * _num2).toString();
     }
     if (operand == division) {
-      if (num2 == zero) {
+      if ((_num1 / _num2).isInfinite) {
         return calcurateError;
       }
-      return (_num1 / _num2).toStringAsFixed(2);
+      _answer = (_num1 / _num2).toStringAsFixed(16);
+    }
+
+    if (double.parse(_answer) % 1 == 0) {
+      return double.parse(_answer).toInt().toString();
+    } else {
+      return double.parse(_answer).toString();
     }
   } catch (e) {
     return calcurateError;
   }
-  return calcurateError;
 }
 
 bool isOperand(String text) {

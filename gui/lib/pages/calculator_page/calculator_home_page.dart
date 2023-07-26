@@ -15,49 +15,48 @@ class CalculatorHomePage extends StatefulWidget {
 class CalculatorHomePageState extends State<CalculatorHomePage> {
   String num1 = zero;
   String num2 = zero;
+
+  String tmpResult = zero;
   String result = zero;
   String operand = '';
 
   void buttonPressed(String buttonText) {
-    // if (result.length > 16) {
-    //   return;
-    // }
-
     if (buttonText == allClear) {
-      num1 = zero;
-      num2 = zero;
-      result = zero;
-      operand = '';
-    } else if (isOperand(buttonText)) {
-      num2 = result;
+      setState(() {
+        num1 = zero;
+        num2 = zero;
+        result = zero;
+        operand = '';
+      });
+      return;
+    }
 
+    if (isOperand(buttonText)) {
+      num1 = tmpResult;
       operand = buttonText;
+      result = zero;
     } else if (buttonText == dot) {
       if (result.contains(dot)) {
         return;
       }
-
-      result = result + buttonText;
+      result = result + dot;
     } else if (buttonText == equals) {
+      num2 = tmpResult;
       result = calculate(num1, num2, operand);
 
-      num1 = result;
+      num1 = zero;
+      num2 = zero;
+      operand = '';
     } else {
-      if (num1 == zero && buttonText == zero) {
+      if (result == zero && buttonText == zero || result.length > 16) {
         return;
       }
 
-      if (num1 == zero) {
-        num1 = buttonText;
-        result = num1;
-      } else {
-        num2 = buttonText;
-        result = num2;
-      }
+      result = result == zero ? buttonText : result + buttonText;
     }
 
     setState(() {
-      result = result;
+      tmpResult = result;
     });
   }
 

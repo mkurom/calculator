@@ -2,6 +2,10 @@ import 'package:gui/util/constant/constant.dart';
 
 String calculate(String num1, String num2, String operand) {
   try {
+    if (!isOperand(operand)) {
+      return calcurateError;
+    }
+
     final _num1 = double.parse(num1);
     final _num2 = double.parse(num2);
     var _answer = zero;
